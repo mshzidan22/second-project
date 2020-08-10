@@ -1,0 +1,53 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script src="lib/jexcel.js"></script>
+<link rel="stylesheet" href="lib/jexcel.css" type="text/css" />
+<script src="lib/jsuites.js"></script>
+<link rel="stylesheet" href="lib/jsuites.css" type="text/css" />
+<script src="lib/jquery.js"></script>
+<script src="lib/jszip.js"></script>
+<script src="lib/xlxs.js"></script>
+<script src="jexcel.js"></script>
+<script src="lib/FileSaver.js"></script>
+<script src="lib/tableexport.js"></script>
+<input type="file" id="fileInput" multiple onchange="getExcel()" /> <br>
+ Enter fixed presentage value : <input type="number" id="fixedPresentagevalue" value="2"> %
+<button id="calc">Fill the sheet </button>
+<button id = "fixedPresentageBtn">Apply fixed presentage</button>
+<button onclick="exportTableToCSV('mySheet.csv')">Download</button>
+<div id="spreadsheet" dir="rtl"></div>
+
+
+<script>
+
+
+    function getExcel() {
+        var name = document.getElementById('fileInput');
+         var excelFileName = name.files.item(0).name;
+
+        // take the url of the file
+        jexcel.fromSpreadsheet("files/"+excelFileName, function (result) {
+            if (!result.length) {
+                console.error('JEXCEL: Something went wrong.');
+            } else {
+                if (result.length == 1) {
+                    jexcel(document.getElementById('spreadsheet'), result[0]);
+                } else {
+                    jexcel.createTabs(document.getElementById('spreadsheet'), result);
+                }
+            }
+
+        });
+
+
+
+    };
+
+
+
+
+
+
+</script>
+
+</html>
